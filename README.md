@@ -136,17 +136,4 @@ data-engineering-end-to-end/
 - **CI/CD workflows** ensuring reliability  
 
 ---
-
-## Simulation steps  
-- **Download required tools and softwares**
-      - Docker
-      - VS code editor
-      - DBeaver ide for postgress
-      - Wsl windows subsystem for Linux
-      - python 12 or 13
-- **DBT models** (facts, dimensions, snapshots)  
-- **Orchestrated DAGs in Airflow**  
-- **Synthetic banking dataset** for demos  
-- **CI/CD workflows** ensuring reliability  
-
-**Author**: *Nand* 
+**Author**: *Nand*
