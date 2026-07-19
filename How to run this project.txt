@@ -1,0 +1,78 @@
+Download and install ==>
+	1. Docker
+	2. VS code editor
+	3. DBeaver tool to connect to postgress
+	4. Wsl windows subsystem for Linux
+	5. python 12 or 13
+	6. git
+
+Clone the repository==>
+	git clone <repo url>
+
+Manually create .env files==>
+	.env file for data generator
+	.env file for kafka debegium
+	.env file dags
+	.env for consumer
+	etc
+
+Configure and run docker ==>
+	docker compose -f docker-compose.yml up -d
+
+	docker compose exec airflow-webserver airflow db init
+
+	docker compose exec airflow-webserver airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com --password admin
+
+
+Cconnect to postgress ==>
+	open DBeaver
+	make new database connection to postgress and create new database called banking
+ 	create required tables from schema file
+
+
+Create source connector using Debezium for Kafka ==>
+
+	python .\generate_and_post_connector.py
+
+Data generation ==>
+
+	python -m pip install -r .\requirements.txt
+
+	python .\data-generator\faker_generator.py
+
+Create s3 bucket named raw ==>
+
+Create consumer to consume kafka topic and send to s3 ==>
+
+	py.exe .\kafka_to_minio.py
+
+Create snowflake account ==>
+	
+	create database/schema/tables as mentioned in snwoflake sql file	
+
+Run DAGs to pull files from S3 to snowflake raw schema ==>
+
+Data transformation/scd - Install and run dbt core ==>
+
+	cd banking_dbt
+
+	python -m venv dbt_env
+	dbt_env\Scripts\activate
+	python -m pip install --upgrade pip wheel setuptools
+	pip install dbt-core dbt-snowflake
+
+	dbt init (to create profile to connect to snowflake)
+
+	dbt snapshot
+	dbt run
+
+Run Airflow DAGs to transform data and capture changes ==>
+
+Dashboard ==>
+
+	pip install streamlit pandas plotly 
+	stremalit run app.py
+
+create secrets in github==>
+
+Thanks.........
